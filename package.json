@@ -1,0 +1,33 @@
+{
+  "name": "gulp-file-blocks",
+  "version": "0.0.1",
+  "description": "A Gulp taks that inserts files in HTML by inserting tags into marked blocks for each file that matches a source pattern",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start test/karma.unit.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/klaascuvelier/gulp-file-blocks.git"
+  },
+  "keywords": [
+    "gulp",
+    "fileblocks",
+    "html",
+    "insert",
+    "prepare",
+    "script"
+  ],
+  "author": "Klaas Cuvelier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klaascuvelier/gulp-file-blocks/issues"
+  },
+  "homepage": "https://github.com/klaascuvelier/gulp-file-blocks",
+  "dependencies": {
+    "glob": "^4.0.6",
+    "gulp-util": "^3.0.1",
+    "lodash": "^2.4.1",
+    "through2": "^0.6.2"
+  }
+}
