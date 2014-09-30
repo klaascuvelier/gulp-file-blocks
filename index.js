@@ -76,7 +76,7 @@ module.exports = function (options)
                 parts, counter;
 
             if (_.isObject(pattern)) {
-                stripPrefixes   = pattern.stripPrefixes;
+                stripPrefixes   = pattern.stripPrefixes || 0;
                 pattern         = pattern.pattern;
             }
 
