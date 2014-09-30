@@ -4,7 +4,7 @@
   "description": "A Gulp taks that inserts files in HTML by inserting tags into marked blocks for each file that matches a source pattern",
   "main": "index.js",
   "scripts": {
-    "test": "karma start test/karma.unit.conf.js"
+    "test": "./node_modules/.bin/karma start test/karma.unit.conf.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,11 @@
     "gulp-util": "^3.0.1",
     "lodash": "^2.4.1",
     "through2": "^0.6.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-jasmine": "^1.0.1",
+    "gulp-jshint": "^1.8.5",
+    "jasmine-node": "^1.14.5"
   }
 }
