@@ -1,5 +1,7 @@
 # gulp-file-blocks
 
+[![Build Status](https://travis-ci.org/klaascuvelier/gulp-file-blocks.svg?branch=master)](https://travis-ci.org/klaascuvelier/gulp-file-blocks)
+
 
 Gulp plugin to create fileblocks with templates
 
