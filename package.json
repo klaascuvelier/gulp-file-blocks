@@ -34,6 +34,9 @@
     "gulp": "^3.8.8",
     "gulp-jasmine": "^1.0.1",
     "gulp-jshint": "^1.8.5",
-    "jasmine-node": "^1.14.5"
+    "jasmine-node": "^1.14.5",
+    "event-stream": "^3.1.7",
+    "vinyl": "^0.4.5",
+    "assert": "^1.1.2"
   }
 }

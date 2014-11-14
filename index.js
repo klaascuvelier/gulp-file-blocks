@@ -15,6 +15,7 @@ module.exports = function (options)
         endRegExp   = /(?:<!--|\/\*|\/\/)\s*endfileblock\s*(?:-->|\*\/)/,
 
         blocks      = options.blocks || {},
+        noFileResolution =  options.noFileResolution || false,
 
         templates   = {
             js  : '<script src="${file}"></script>',
@@ -80,14 +81,8 @@ module.exports = function (options)
                 pattern         = pattern.pattern;
             }
 
-            var filePaths   = glob.sync(pattern);
-
-            if (filePaths[0] === undefined) {
-                throw new gutil.PluginError('gulp-file-blocks', 'Path ' + filePatterns[i] + ' not found!');
-            }
-
-            filePaths.forEach(function (filePath) {
-
+            var prefixStripper = function(filePath) {
+                var strippedFilePath = filePath
                 if (stripPrefixes > 0) {
                     counter = stripPrefixes;
                     parts = (filePath + '').split('/');
@@ -96,11 +91,33 @@ module.exports = function (options)
                         parts.shift();
                     }
 
-                    filePath = parts.join('/');
+                    strippedFilePath = parts.join('/');
                 }
 
-                files.push(filePath);
-            });
+                return strippedFilePath;
+            };
+
+            // resolve files on path, allows globbing
+            if (!noFileResolution) {
+                var filePaths   = glob.sync(pattern);
+
+                if (filePaths[0] === undefined) {
+                    throw new gutil.PluginError('gulp-file-blocks', 'Path ' + filePatterns[i] + ' not found!');
+                }
+
+                filePaths.forEach(function (filePath) {
+                    files.push(prefixStripper(filePath));
+                });
+
+            } else {
+                // Don't resolve files, so future files can be inserted, prevents globbing
+
+                if (pattern.indexOf('*') !== -1) {
+                    throw new gutil.PluginError('gulp-file-blocks', "Can't use globs when resolve is false!");
+                }
+
+                files.push(prefixStripper(pattern))
+            }
         }
 
         return files;
@@ -114,12 +131,12 @@ module.exports = function (options)
         if (file.isNull()) {
             this.push(file); // Do nothing if no contents
             callback();
-        }
-        else if (file.isStream()) {
+
+        } else if (file.isStream()) {
             this.emit('error', new gutil.PluginError('gulp-file-blocks', 'Streams are not supported!'));
             callback();
-        }
-        else {
+
+        } else {
             var html = processHtml(String(file.contents));
 
             this.push(new gutil.File({
